@@ -69,17 +69,17 @@ class GetData
         $jenjangPen = explode('>', $getJp)[1];
 
         $tabOne = [
-            'nama' => $nama,
-            'npsn' => $npsn,
-            'alamat' => $alamat,
-            'kode_pos' => $kodePos,
-            'desa_kelurahan' => $desKel,
-            'kecamatan' => $kecKot,
-            'kabupaten_kota' => $kabKot,
-            'provinsi' => $provinsi,
-            'status' => $statusSek,
-            'waktu' => $waktuPen,
-            'jenjang' => $jenjangPen
+            'nama' => trim($nama),
+            'npsn' => trim($npsn),
+            'alamat' => trim($alamat),
+            'kode_pos' => trim($kodePos),
+            'desa_kelurahan' => trim($desKel),
+            'kecamatan' => trim($kecKot),
+            'kabupaten_kota' => trim($kabKot),
+            'provinsi' => trim($provinsi),
+            'status' => trim($statusSek),
+            'waktu' => trim($waktuPen),
+            'jenjang' => trim($jenjangPen)
         ];
 
         print_r($tabOne);
