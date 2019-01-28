@@ -1,4 +1,5 @@
 <?php
+
 /**
  * https://github.com/egin10
  * function getStringBetween
@@ -82,6 +83,30 @@ class GetData
             'jenjang' => trim($jenjangPen)
         ];
 
-        print_r($tabOne);
+        if($tabOne['nama'] == ''){
+            echo "Data Sekolah tidak ditemukan.";
+        }else{
+            print_r($tabOne);
+        }
+    }
+
+    public function listProvinsi($get)
+    {
+        $listProv = trim($this->getStringBetween($get, '<tr bgcolor="#eeeeee">', '</tbody>'));
+        $arrProv = explode("</tr>",$listProv);
+        $dataProv = [];
+        
+        for($i=1; $i<count($arrProv)-1;$i++)
+        {
+            $pilah = $this->getStringBetween(explode('</td>',$arrProv[$i])[0], '<a href=', '</a>');
+            $link = explode('>', $pilah)[0];
+            $provName = explode('>', $pilah)[1];
+            $dataProv[] = [
+                'link' => trim($link),
+                'prov_name' => trim($provName)
+            ];
+        }
+
+        print_r($dataProv);
     }
 }
