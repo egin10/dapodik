@@ -2,7 +2,7 @@
 
 /**
  * https://github.com/egin10
- * function getStringBetween
+ * Class GetData
  */
 
 class GetData
@@ -18,12 +18,12 @@ class GetData
         return substr($teks, $ini, $panjang);
     }
 
-    public function tabOne($get)
+    public function checkNPSN($get)
     {
         //tab-1
         $tabOne = $this->getStringBetween($get, '<div id="tabs-1">', '</div>');
-        $table = $this->getStringBetween($tabOne, '<table>', '</table>');
-        $arrTabOne = explode("</tr>", $table);
+        $tableOne = $this->getStringBetween($tabOne, '<table>', '</table>');
+        $arrTabOne = explode("</tr>", $tableOne);
 
         //Nama Sekolah
         $getNama = explode("</td>", $arrTabOne[0])[3];
@@ -69,8 +69,50 @@ class GetData
         $getJp = explode("</td>", $arrTabOne[13])[3];
         $jenjangPen = explode('>', $getJp)[1];
 
-        $tabOne = [
-            'nama' => trim($nama),
+        //tab-2
+        $tabTwo = $this->getStringBetween($get, '<div id="tabs-2">', '</div>');
+        $tableTwo = $this->getStringBetween($tabTwo, '<table>', '</table>');
+        $arrTabTwo = explode("</tr>", $tableTwo);
+
+        //Naungan
+        $getNaungan = explode("</td>",$arrTabTwo[0])[3];
+        $naungan = explode(">",$getNaungan)[1];
+
+        //No_SK_Pendirian
+        $getNoSKPendirian = explode("</td>",$arrTabTwo[1])[3];
+        $noSKPendirian = explode(">",$getNoSKPendirian)[1];
+
+        //Tgl_SK_Pendirian
+        $getTglSKPendirian = explode("</td>",$arrTabTwo[2])[3];
+        $TglSKPendirian = explode(">",$getTglSKPendirian)[1];
+
+        // No_SK_Operasional
+        $getNoSKOperasional = explode("</td>",$arrTabTwo[4])[3];
+        $noSKOperasional = explode(">",$getNoSKOperasional)[1];
+
+        // Tgl_SK_Operasional
+        $getTglSKOperasional = explode("</td>",$arrTabTwo[5])[3];
+        $tglSKOperasional = explode(">",$getTglSKOperasional)[1];
+
+        // Akreditasi
+        $getAkreditasi = explode("</td>",$arrTabTwo[8])[3];
+        $akreditasi = $this->getStringBetween($getAkreditasi,'<strong>','</strong>');
+
+        // No_SK_Akreditasi
+        $getNoSKAkreditasi = explode("</td>",$arrTabTwo[10])[3];
+        $noSKAkreditasi = explode(">",$getNoSKAkreditasi)[1];
+
+        // Tgl_SK_Akreditasi
+        $getTglSKAkreditasi = explode("</td>",$arrTabTwo[11])[3];
+        $tglSKAkreditasi = explode(">",$getTglSKAkreditasi)[1];
+
+        // No_Sertifikat_ISO
+        $getNoSerISO = explode("</td>",$arrTabTwo[13])[3];
+        $noSerISO = explode(">",$getNoSerISO)[1];
+
+        //Result
+        $res = [
+            'nama' => trim($nama), //tab-1 start
             'npsn' => trim($npsn),
             'alamat' => trim($alamat),
             'kode_pos' => trim($kodePos),
@@ -80,13 +122,23 @@ class GetData
             'provinsi' => trim($provinsi),
             'status' => trim($statusSek),
             'waktu' => trim($waktuPen),
-            'jenjang' => trim($jenjangPen)
+            'jenjang' => trim($jenjangPen),
+            'naungan' => trim($naungan), //tab-2 start
+            'no_sk_pendirian' => trim($noSKPendirian),
+            'tgl_sk_pendirian' => trim($TglSKPendirian),
+            'no_sk_operasional' => trim($noSKOperasional),
+            'tgl_sk_operasional' => trim($tglSKOperasional),
+            'akreditasi' => trim($akreditasi),
+            'no_sk_akreditasi' => trim($noSKAkreditasi),
+            'tgl_sk_akreditasi' => trim($tglSKAkreditasi),
+            'no_sertifikat_iso' => trim($noSerISO)
         ];
 
-        if($tabOne['nama'] == ''){
+        if($res['nama'] == ''){
             echo "Data Sekolah tidak ditemukan.";
         }else{
-            print_r($tabOne);
+            print_r($res);
+            // return $tabOne;
         }
     }
 
@@ -106,7 +158,47 @@ class GetData
                 'prov_name' => trim($provName)
             ];
         }
+        // print_r($dataProv);
+        return $dataProv;
+    }
 
-        print_r($dataProv);
+    public function listKabupaten($get)
+    {
+        $listKab = trim($this->getStringBetween($get, '<tr bgcolor="#eeeeee">', '</tbody>'));
+        $arrKab = explode("</tr>",$listKab);
+        $dataKab = [];
+        
+        for($i=1; $i<count($arrKab)-1;$i++)
+        {
+            $pilah = $this->getStringBetween(explode('</td>',$arrKab[$i])[0], '<a href=', '</a>');
+            $link = explode('>', $pilah)[0];
+            $kabName = explode('>', $pilah)[1];
+            $dataKab[] = [
+                'link' => trim($link),
+                'kab_name' => trim($kabName)
+            ];
+        }
+        // print_r($dataKab);
+        return $dataKab;
+    }
+
+    public function listKecamatan($get)
+    {
+        $listKec = trim($this->getStringBetween($get, '<tr bgcolor="#eeeeee">', '</tbody>'));
+        $arrKec = explode("</tr>",$listKec);
+        $dataKec = [];
+        
+        for($i=1; $i<count($arrKec)-1;$i++)
+        {
+            $pilah = $this->getStringBetween(explode('</td>',$arrKec[$i])[0], '<a href=', '</a>');
+            $link = explode('>', $pilah)[0];
+            $kecName = explode('>', $pilah)[1];
+            $dataKec[] = [
+                'link' => trim($link),
+                'kec_name' => trim($kecName)
+            ];
+        }
+        // print_r($dataKec);
+        return $dataKec;
     }
 }
