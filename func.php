@@ -138,7 +138,7 @@ class GetData
             echo "Data Sekolah tidak ditemukan.";
         }else{
             print_r($res);
-            // return $tabOne;
+            // return $res;
         }
     }
 
@@ -200,5 +200,25 @@ class GetData
         }
         // print_r($dataKec);
         return $dataKec;
+    }
+
+    public function listNpsn($get)
+    {
+        $listNpsn = trim($this->getStringBetween($get, '</thead>', '</table>'));
+        $arrNpsn = explode("</tr><tr>",$listNpsn);
+        $dataNpsn = [];
+
+        for($i=0; $i<count($arrNpsn); $i++)
+        {
+            $npsn = $this->getStringBetween($arrNpsn[$i],"&nbsp;<b>","</b></a>")."\n";
+            $nama_sekolah = $this->getStringBetween($arrNpsn[$i],"</a></td><td>","</td><td>")."\n";
+
+            $dataNpsn[] = [
+                'npsn' => trim($npsn),
+                'nama_sekolah' => trim($nama_sekolah)
+            ];
+        }
+        // print_r($dataNpsn);
+        return $dataNpsn;
     }
 }

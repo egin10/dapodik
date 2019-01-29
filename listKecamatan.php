@@ -4,7 +4,7 @@ include_once "func.php";
 /**
  * https://github.com/egin10
  * Get Data from url
- * @param $kd_prov(index11.php?kode=KODE_KABUPATEN&level=2)
+ * @param $kd_kab(index11.php?kode=KODE_KABUPATEN&level=2)
  * url : http://referensi.data.kemdikbud.go.id/index11.php?kode=KODE_KABUPATEN&level=2
  */
 
