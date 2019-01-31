@@ -137,8 +137,8 @@ class GetData
         if($res['nama'] == ''){
             echo "Data Sekolah tidak ditemukan.";
         }else{
-            print_r($res);
-            // return $res;
+            // print_r($res);
+            return $res;
         }
     }
 

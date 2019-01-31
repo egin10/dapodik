@@ -2,7 +2,8 @@
 /**
  * https://github.com/egin10
  * Get Data from url
- * url : http://referensi.data.kemdikbud.go.id/index11.php
+ * @param $argv[1]
+ * url : http://referensi.data.kemdikbud.go.id/tabs.php?npsn=NPSN_SEKOLAH
  */
 
 include_once "func.php";
