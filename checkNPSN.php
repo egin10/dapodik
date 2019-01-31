@@ -17,8 +17,8 @@ if(sizeof($argv) == 1 || $argv[1] == NULL) {
     $ch = curl_init($url);
     curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
     $get = curl_exec($ch);
-    $tabOne = $getData->checkNPSN($get);
+    $res = $getData->checkNPSN($get);
     curl_close($ch);
-    print_r($tabOne);
+    print_r($res);
     unset($getData);
 }

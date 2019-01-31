@@ -56,9 +56,16 @@ foreach ($listProvinsi as $kProv => $vProv) {
 			
 			$l = 0;
 			foreach ($listNpsn as $kNpsn => $vNpsn) {
+				$url_sekolah = $base_url."tabs.php?npsn=".$vNpsn['npsn'];
+			    $ch_sekolah = curl_init($url_sekolah);
+			    curl_setopt_array($ch_sekolah, [CURLOPT_RETURNTRANSFER => true]);
+			    $get_sekolah = curl_exec($ch_sekolah);
+			    $res = $getData->checkNPSN($get_sekolah);
+
 				//Result NPSN Sekolah
 				echo "\t\t\tNo. ".$l." -> NPSN ".$vNpsn['npsn']."\t".$vNpsn['nama_sekolah']."\n";
 
+				curl_close($ch_sekolah);
 				$l++;
 			}
 
