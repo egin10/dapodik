@@ -80,7 +80,7 @@ class GetData
 
         //No_SK_Pendirian
         $getNoSKPendirian = explode("</td>",$arrTabTwo[1])[3];
-        $noSKPendirian = explode(">",$getNoSKPendirian)[1];
+        $noSKPendirian = strpos($getNoSKPendirian, "Perlu Update") ? "Perlu Update" : explode(">",$getNoSKPendirian)[1];
 
         //Tgl_SK_Pendirian
         $getTglSKPendirian = explode("</td>",$arrTabTwo[2])[3];
@@ -88,7 +88,7 @@ class GetData
 
         // No_SK_Operasional
         $getNoSKOperasional = explode("</td>",$arrTabTwo[4])[3];
-        $noSKOperasional = explode(">",$getNoSKOperasional)[1];
+        $noSKOperasional = strpos($getNoSKOperasional, "Perlu Update") ? "Perlu Update" : explode(">",$getNoSKOperasional)[1];
 
         // Tgl_SK_Operasional
         $getTglSKOperasional = explode("</td>",$arrTabTwo[5])[3];

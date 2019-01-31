@@ -19,8 +19,10 @@ $listKabupaten = $getData->listKabupaten($get_kab);
 //Result Kabupaten
 echo "==========================================================================================\n";
 echo "||\t\t\tDaftar Sekolah Provinsi Kalimantan Timur\t\t\t||\n";
+echo "||\t\t\t\tData dari Website Data Refrensi\t\t\t\t||\n";
+echo "||\t\t\t\t\tKemenDikBud\t\t\t\t\t||\n";
 echo "==========================================================================================\n";
-$t = 0;
+
 $j = 1;
 foreach ($listKabupaten as $kKab => $vKab) {
 	//Get Kecamatan
@@ -31,9 +33,10 @@ foreach ($listKabupaten as $kKab => $vKab) {
 	$listKecamatan = $getData->listKecamatan($get_kec);
 
 	//Result Kecamatan
-	echo "\tNo. ".$j." -> ".$vKab['kab_name']."\n";
-	echo "\t\tJml Kecamatan => ".count($listKecamatan)."\n";
+	echo "No. ".$j." -> ".$vKab['kab_name']."\n";
+	echo "\tJml Kecamatan => ".count($listKecamatan)."\n";
 
+	$t = 1;
 	$k = 1;
 	foreach ($listKecamatan as $kKec => $vKec) {
 		//Get List NPSN
@@ -44,23 +47,22 @@ foreach ($listKabupaten as $kKab => $vKab) {
 		$listNpsn = $getData->listNpsn($get_npsn);
 
 		//Result List NPSN
-		echo "\t\tNo. ".$k." -> ".$vKec['kec_name']."\n";
-		echo "\t\t\tJml Sekolah => ".count($listNpsn)."\n";
+		echo "\tNo. ".$k." -> ".$vKec['kec_name']."\n";
+		echo "\t\tJml Sekolah => ".count($listNpsn)."\n";
 		
-		$l = 0;
+		$l = 1;
 		foreach ($listNpsn as $kNpsn => $vNpsn) {
-			$url_sekolah = $base_url."tabs.php?npsn=".$vNpsn['npsn'];
+			$url_sekolah = $base_url."tabs.php?npsn=".trim($vNpsn['npsn']);
 		    $ch_sekolah = curl_init($url_sekolah);
 		    curl_setopt_array($ch_sekolah, [CURLOPT_RETURNTRANSFER => true]);
 		    $get_sekolah = curl_exec($ch_sekolah);
 		    $res = $getData->checkNPSN($get_sekolah);
-
+			$t++;
 			//Result NPSN Sekolah
-			echo "\t\t\tNo. ".$l." -> NPSN ".$vNpsn['npsn']."\t".$vNpsn['nama_sekolah']."\n";
+			echo "\t\tNo. ".$l." -> NPSN ".$vNpsn['npsn']."\t".$vNpsn['nama_sekolah']."\n";
 
 			curl_close($ch_sekolah);
 			$l++;
-			$t++;
 		}
 
 		curl_close($ch_npsn);
