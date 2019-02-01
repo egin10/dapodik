@@ -1,5 +1,6 @@
 <?php
 include_once "func.php";
+include_once "xlsxwriter.class.php";
 
 /**
  * https://github.com/egin10
@@ -23,6 +24,30 @@ echo "||\t\t\t\tData dari Website Data Refrensi\t\t\t\t||\n";
 echo "||\t\t\t\t\tKemenDikBud\t\t\t\t\t||\n";
 echo "==========================================================================================\n";
 
+$arrSekolah = [];
+$arrSekolah[] = [
+	'npsn' => "NPSN", //tab-1 start
+    'nama' => "Nama Sekolah",
+    'alamat' => "Alamat",
+    'kode_pos' => "Kode Pos",
+    'desa_kelurahan' => "Desa/Kelurahan",
+    'kecamatan' => "Kecamatan",
+    'kabupaten_kota' => "Kabupaten/Kota",
+    'provinsi' => "Provinsi",
+    'status' => "Status",
+    'waktu' => "Waktu Penyelenggaraan",
+    'jenjang' => "Jenjang",
+    'naungan' => "Naungan", //tab-2 start
+    'no_sk_pendirian' => "No SK Pendirian",
+    'tgl_sk_pendirian' => "Tanggal SK Pendirian",
+    'no_sk_operasional' => "No SK Operasional",
+    'tgl_sk_operasional' => "Tanggal SK Operasional",
+    'akreditasi' => "Akreditasi",
+    'no_sk_akreditasi' => "No SK Akreditasi",
+    'tgl_sk_akreditasi' => "Tanggal SK Akreditasi",
+    'no_sertifikat_iso' => "No Sertifikat ISO"
+];
+
 $j = 1;
 foreach ($listKabupaten as $kKab => $vKab) {
 	//Get Kecamatan
@@ -36,7 +61,6 @@ foreach ($listKabupaten as $kKab => $vKab) {
 	echo "No. ".$j." -> ".$vKab['kab_name']."\n";
 	echo "\tJml Kecamatan => ".count($listKecamatan)."\n";
 
-	$t = 1;
 	$k = 1;
 	foreach ($listKecamatan as $kKec => $vKec) {
 		//Get List NPSN
@@ -63,6 +87,7 @@ foreach ($listKabupaten as $kKab => $vKab) {
 
 			curl_close($ch_sekolah);
 			$l++;
+			$arrSekolah[] = $res;
 		}
 
 		curl_close($ch_npsn);
@@ -73,6 +98,24 @@ foreach ($listKabupaten as $kKab => $vKab) {
 	$j++;
 }
 
-echo "Total Sekolah di Provinsi Kalimantan Timur : ".$t."\n";
+echo "Total Sekolah di Provinsi Kalimantan Timur : ".count($arrSekolah)."\n";
+
+//Write xlsx
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE);
+$filename = "Prov_Kaltim.xlsx";
+$rows = $arrSekolah;
+$writer = new XLSXWriter();
+$writer->setAuthor('Egin10'); 
+foreach($rows as $row)
+	$writer->writeSheetRow('Sheet1', $row);
+$writer->writeToFile($filename);
+
+$mv = rename($filename, "FILES/".$filename);
+if($mv) {
+	echo "File created!\n";
+	echo "DONE!\n";
+}
 // print_r($listProvinsi);
 unset($getData);

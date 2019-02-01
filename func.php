@@ -112,8 +112,8 @@ class GetData
 
         //Result
         $res = [
-            'nama' => trim($nama), //tab-1 start
-            'npsn' => trim($npsn),
+            'npsn' => trim($npsn), //tab-1 start
+            'nama' => trim($nama),
             'alamat' => trim($alamat),
             'kode_pos' => trim($kodePos),
             'desa_kelurahan' => trim($desKel),
