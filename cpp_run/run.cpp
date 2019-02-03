@@ -73,16 +73,57 @@ int main(){
 					break;		
 			}
 			break;
+
 		case 2:
 			system("clear");
-			cout << "Check NPSN Beberapa Sekolah (excel)" << endl;
-			goto start;
+			
+			menu2:
+			cout << "*========================================================*" << endl;
+			cout << "||\tAplikasi Download Data Refrensi Sekolah\t\t||" << endl;
+			cout << "||\t\tDari Website Dapodik\t\t\t||" << endl;
+			cout << "||\thttp://referensi.data.kemdikbud.go.id\t\t||" << endl;
+			cout << "*========================================================*" << endl;
+			
+			int c;
+			cout << "Pastikan anda telah memasukan list NPSN di file npsn.xlsx. " << endl;
+			cout << "Setelah memasukan list NPSN jangan lupa di save. " << endl;
+			cout << "1. Jalankan. " << endl;
+			cout << "2. Kembali. " << endl;
+			cout << "3. Exit. " << endl;
+			cout << "Pilih Menu : ";
+			cin >> c;
+
+			switch(c){
+				case 1:
+					system("clear");
+					cout << "Check NPSN...\n";
+					// call php for checking list NPSN
+					cout << "Selesai...\n";
+					goto menu2;
+					break;
+				case 2:
+					system("clear");
+					goto start;
+					break;
+				case 3:
+					system("clear");
+					cout << "Terimakasih. Exit...\n";
+					exit(1);
+					break;
+				default:
+					system("clear");
+					cout << "Inputan salah...\n";
+					goto menu2;
+					break;
+			}
 			break;
+
 		case 3:
 			system("clear");
 			cout << "Terimakasih. Exit...\n";
 			exit(1);
 			break;
+
 		default:
 			system("clear");
 			cout << "Inputan salah...\n";
