@@ -14,5 +14,13 @@ curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
 $get = curl_exec($ch);
 $listProvinsi = $getData->listProvinsi($get);
 curl_close($ch);
-print_r($listProvinsi);
+// print_r($listProvinsi);
+$n = 1;
+echo "*========================================*\n";
+echo "||\t List Provinsi se-Indonesia\t||\n";
+echo "*========================================*\n";
+foreach ($listProvinsi as $prov) {
+	echo "* ".$n.". ".$prov['prov_name']."\n";
+	$n++;
+}
 unset($getData);

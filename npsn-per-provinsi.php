@@ -81,7 +81,7 @@ foreach ($listKabupaten as $kKab => $vKab) {
 		    curl_setopt_array($ch_sekolah, [CURLOPT_RETURNTRANSFER => true]);
 		    $get_sekolah = curl_exec($ch_sekolah);
 		    $res = $getData->checkNPSN($get_sekolah);
-			$t++;
+
 			//Result NPSN Sekolah
 			echo "\t\tNo. ".$l." -> NPSN ".$vNpsn['npsn']."\t".$vNpsn['nama_sekolah']."\n";
 
