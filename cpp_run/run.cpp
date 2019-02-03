@@ -1,9 +1,12 @@
 #include <iostream>
 #include <stdio.h>
+#include <string>
 
 using namespace std;
 
 int main(){
+	string cmd;
+	
 	system("clear");
 	start :
 
@@ -50,9 +53,12 @@ int main(){
 					int noProv;
 					cout << "Silahkan masukan No Provinsi anda : ";
 					cin >> noProv;
-					cout << noProv << endl;
+					// cout << noProv << endl;
+					
+					cmd = "php ../npsn-per-provinsi.php " + to_string(noProv);
 					cout << "Start...\n";
 					// this line call php download
+					system(cmd.c_str());
 					cout << "Selesai...\n";
 					cout << "Silahkan check file di folder FILES.\n";
 					goto menu1;
