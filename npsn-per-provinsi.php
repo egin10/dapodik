@@ -13,13 +13,11 @@ $getData = new GetData;
 $linkProv = '';
 $nameProv = '';
 
-$getData = new GetData;
 $url_prov = $base_url."index11.php";
 $ch_prov = curl_init($url_prov);
 curl_setopt_array($ch_prov, [CURLOPT_RETURNTRANSFER => true]);
 $get_prov = curl_exec($ch_prov);
 $listProvinsi = $getData->listProvinsi($get_prov);
-curl_close($ch_prov);
 
 foreach ($listProvinsi as $kProv => $vProv) {
 	if($kProv == $argv[1]-1) {
@@ -27,6 +25,7 @@ foreach ($listProvinsi as $kProv => $vProv) {
 		$nameProv = $vProv['prov_name'];
 	}
 }
+curl_close($ch_prov);
 
 // //Get Kabupaten
 $url_kab = $base_url.$linkProv;
@@ -37,7 +36,7 @@ $listKabupaten = $getData->listKabupaten($get_kab);
 
 //Result Kabupaten
 echo "==========================================================================================\n";
-echo "||\t\t\tDaftar Sekolah Provinsi Kalimantan Timur\t\t\t||\n";
+echo "\t\t\t\tDaftar Sekolah ".$nameProv."\t\t\t\n";
 echo "||\t\t\t\tData dari Website Data Refrensi\t\t\t\t||\n";
 echo "||\t\t\t\t\tKemenDikBud\t\t\t\t\t||\n";
 echo "==========================================================================================\n";
@@ -74,7 +73,6 @@ foreach ($listKabupaten as $kKab => $vKab) {
 	curl_setopt_array($ch_kec, [CURLOPT_RETURNTRANSFER => true]);
 	$get_kec = curl_exec($ch_kec);
 	$listKecamatan = $getData->listKecamatan($get_kec);
-	curl_close($ch_kec);
 
 	//Result Kecamatan
 	echo "No. ".$j." -> ".$vKab['kab_name']."\n";
@@ -88,7 +86,6 @@ foreach ($listKabupaten as $kKab => $vKab) {
 		curl_setopt_array($ch_npsn, [CURLOPT_RETURNTRANSFER => true]);
 		$get_npsn = curl_exec($ch_npsn);
 		$listNpsn = $getData->listNpsn($get_npsn);
-		curl_close($ch_npsn);
 
 		//Result List NPSN
 		echo "\tNo. ".$k." -> ".$vKec['kec_name']."\n";
@@ -101,39 +98,41 @@ foreach ($listKabupaten as $kKab => $vKab) {
 		    curl_setopt_array($ch_sekolah, [CURLOPT_RETURNTRANSFER => true]);
 		    $get_sekolah = curl_exec($ch_sekolah);
 		    $res = $getData->checkNPSN($get_sekolah);
-			curl_close($ch_sekolah);
 
 			//Result NPSN Sekolah
 			echo "\t\tNo. ".$l." -> NPSN ".$vNpsn['npsn']."\t".$vNpsn['nama_sekolah']."\n";
 
 			$l++;
 			$arrSekolah[] = $res;
+			curl_close($ch_sekolah);
 		}
 
+		curl_close($ch_npsn);
 		$k++;
 	}
 
+	curl_close($ch_kec);
 	$j++;
 }
 
-echo "Total Sekolah di Provinsi Kalimantan Timur : ".count($arrSekolah)."\n";
+echo "Total Sekolah di ".$nameProv." : ".count($arrSekolah)."\n";
 
 //Write xlsx
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 error_reporting(E_ALL & ~E_NOTICE);
-$filename = implode("_", explode(" ", $nameProv));
-$rows = $arrSekolah;
+$filename = implode("_", explode(" ", $nameProv))."_".date('d-m-Y').".xlsx";
 $writer = new XLSXWriter();
 $writer->setAuthor('egin10'); 
-foreach($rows as $row)
-	$writer->writeSheetRow('Sheet1', $row);
+foreach($arrSekolah as $row){
+	if($row != NULL) $writer->writeSheetRow('Sheet1', $row);
+}
 $writer->writeToFile($filename);
 
-$mv = rename($filename, "FILES/".$filename."_".date('d-m-Y').".xlsx");
+$mv = rename($filename, "../FILES/".$filename);
 if($mv) {
 	echo "File created!\n";
 	echo "DONE!\n";
 }
-// print_r($listProvinsi);
+
 unset($getData);
