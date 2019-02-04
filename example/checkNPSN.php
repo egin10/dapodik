@@ -6,7 +6,7 @@
  * url : http://referensi.data.kemdikbud.go.id/tabs.php?npsn=NPSN_SEKOLAH
  */
 
-include_once "func.php";
+require_once __DIR__."/../src/func.php";
 
 $getData = new GetData;
 
@@ -19,6 +19,10 @@ if(sizeof($argv) == 1 || $argv[1] == NULL) {
     $get = curl_exec($ch);
     $res = $getData->checkNPSN($get);
     curl_close($ch);
-    print_r($res);
+    if($res == '') {
+        echo "Data Sekolah tidak ditemukan.\n";
+    }else{
+	    print_r($res);
+    }
     unset($getData);
 }

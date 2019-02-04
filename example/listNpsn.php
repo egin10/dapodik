@@ -1,5 +1,5 @@
 <?php
-include_once "func.php";
+require_once __DIR__."/../src/func.php";
 
 /**
  * https://github.com/egin10

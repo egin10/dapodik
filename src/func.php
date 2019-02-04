@@ -135,7 +135,8 @@ class GetData
         ];
 
         if($res['nama'] == ''){
-            echo "Data Sekolah tidak ditemukan.";
+            // echo "Data Sekolah tidak ditemukan.\n";
+            $res = '';
         }else{
             // print_r($res);
             return $res;

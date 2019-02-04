@@ -1,6 +1,6 @@
 <?php
-include_once "func.php";
-include_once "xlsxwriter.class.php";
+require_once __DIR__."/src/func.php";
+require_once __DIR__."/src/xlsxwriter.class.php";
 
 /**
  * https://github.com/egin10
@@ -129,7 +129,7 @@ foreach($arrSekolah as $row){
 }
 $writer->writeToFile($filename);
 
-$mv = rename($filename, "../FILES/".$filename);
+$mv = rename($filename, __DIR__."/../FILES/".$filename);
 if($mv) {
 	echo "File created!\n";
 	echo "DONE!\n";

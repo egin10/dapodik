@@ -91,7 +91,7 @@ int main(){
 			cout << "*========================================================*" << endl;
 			
 			int c;
-			cout << "Pastikan anda telah memasukan list NPSN di file npsn.xlsx. " << endl;
+			cout << "Pastikan anda telah memasukan list NPSN di file check-npsn.xlsx. " << endl;
 			cout << "Setelah memasukan list NPSN jangan lupa di save. " << endl;
 			cout << "1. Jalankan. " << endl;
 			cout << "2. Kembali. " << endl;
@@ -104,6 +104,7 @@ int main(){
 					system("clear");
 					cout << "Check NPSN...\n";
 					// call php for checking list NPSN
+					system("php ../excelNPSN.php");
 					cout << "Selesai...\n";
 					goto menu2;
 					break;
