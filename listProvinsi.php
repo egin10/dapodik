@@ -1,11 +1,12 @@
 <?php
-require_once __DIR__."/src/func.php";
-
 /**
  * https://github.com/egin10
  * Get Data List Provinsi from url
  * url : http://referensi.data.kemdikbud.go.id/index11.php
  */
+
+require_once __DIR__."/src/func.php";
+date_default_timezone_set("Asia/Jakarta");
 
 $getData = new GetData;
 $url = "http://referensi.data.kemdikbud.go.id/index11.php";

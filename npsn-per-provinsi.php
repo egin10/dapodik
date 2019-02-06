@@ -1,12 +1,14 @@
 <?php
-require_once __DIR__."/src/func.php";
-require_once __DIR__."/src/xlsxwriter.class.php";
-
 /**
  * https://github.com/egin10
  * Get Data List Provinsi from url
  * url : http://referensi.data.kemdikbud.go.id/index11.php
  */
+
+require_once __DIR__."/src/func.php";
+require_once __DIR__."/src/xlsxwriter.class.php";
+date_default_timezone_set("Asia/Jakarta");
+
 $base_url = "http://referensi.data.kemdikbud.go.id/";
 $getData = new GetData;
 
@@ -129,7 +131,7 @@ foreach($arrSekolah as $row){
 }
 $writer->writeToFile($filename);
 
-$mv = rename($filename, __DIR__."/../FILES/".$filename);
+$mv = rename($filename, __DIR__."/FILES/".$filename);
 if($mv) {
 	echo "File created!\n";
 	echo "DONE!\n";

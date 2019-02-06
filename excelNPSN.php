@@ -9,6 +9,7 @@
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
+date_default_timezone_set("Asia/Jakarta");
 
 require_once __DIR__.'/src/SimpleXLSX.php';
 require_once __DIR__.'/src/func.php';
