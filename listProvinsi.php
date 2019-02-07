@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /**
  * https://github.com/egin10
