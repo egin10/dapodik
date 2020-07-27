@@ -148,7 +148,7 @@ class GetData
         $listProv = trim($this->getStringBetween($get, '<tr bgcolor="#eeeeee">', '</tbody>'));
         $arrProv = explode("</tr>",$listProv);
         $dataProv = [];
-        
+
         for($i=1; $i<count($arrProv)-1;$i++)
         {
             $pilah = $this->getStringBetween(explode('</td>',$arrProv[$i])[0], '<a href=', '</a>');

@@ -5,7 +5,7 @@
  * Get Data from url
  * @param $file
  * @return array
- * url : http://referensi.data.kemdikbud.go.id/tabs.php?npsn=NPSN_SEKOLAH
+ * url : https://referensi.data.kemdikbud.go.id/tabs.php?npsn=NPSN_SEKOLAH
  */
 
 ini_set('error_reporting', E_ALL);
@@ -26,7 +26,7 @@ if ( $xlsx = SimpleXLSX::parse(__DIR__.'/check-npsn.xlsx') ) {
 		for($i=2; $i<$t; $i++) {
 			
 			$getData = new GetData;
-			$url = "http://referensi.data.kemdikbud.go.id/tabs.php?npsn=".trim($xlsx->rows()[$i][0]);
+			$url = "https://referensi.data.kemdikbud.go.id/tabs.php?npsn=".trim($xlsx->rows()[$i][0]);
 			$ch = curl_init($url);
 			curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
 			$get = curl_exec($ch);

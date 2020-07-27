@@ -4,9 +4,9 @@ require_once __DIR__."/../src/func.php";
 /**
  * https://github.com/egin10
  * Get Data List Provinsi from url
- * url : http://referensi.data.kemdikbud.go.id/index11.php
+ * url : https://referensi.data.kemdikbud.go.id/index11.php
  */
-$base_url = "http://referensi.data.kemdikbud.go.id/";
+$base_url = "https://referensi.data.kemdikbud.go.id/";
 $getData = new GetData;
 $url = $base_url."index11.php";
 $ch = curl_init($url);
