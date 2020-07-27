@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /**
  * https://github.com/egin10
@@ -10,13 +9,12 @@
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
-date_default_timezone_set("Asia/Jakarta");
 
-require_once __DIR__.'/src/SimpleXLSX.php';
-require_once __DIR__.'/src/func.php';
+require_once __DIR__.'/../src/SimpleXLSX.php';
+require_once __DIR__.'/../src/func.php';
 
-$n = 1;
-if ( $xlsx = SimpleXLSX::parse(__DIR__.'/check-npsn.xlsx') ) {
+
+if ( $xlsx = SimpleXLSX::parse(__DIR__.'/../check-npsn.xlsx') ) {
 	// print_r( $xlsx->rows() );
 	$t = count($xlsx->rows());
 	if($t < 3) {
@@ -34,7 +32,6 @@ if ( $xlsx = SimpleXLSX::parse(__DIR__.'/check-npsn.xlsx') ) {
 			curl_close($ch);
 			// print_r($res);
 			echo "======================================\n";
-			echo "No. ".$n."\n";
 			echo "NPSN Excel : ".$xlsx->rows()[$i][0]."\n";
 			if($res == '') {
 				echo "Data tidak ditemukan.\n";
@@ -50,7 +47,6 @@ if ( $xlsx = SimpleXLSX::parse(__DIR__.'/check-npsn.xlsx') ) {
 				echo "Akreditasi : ".$res['akreditasi']."\n";
 				echo "Tgl SK Akreditasi : ".$res['tgl_sk_akreditasi']."\n";
 			}
-			$n++;
 			unset($getData);
 		}
 	}
