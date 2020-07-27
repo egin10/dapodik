@@ -3,14 +3,14 @@
 /**
  * https://github.com/egin10
  * Get Data List Provinsi from url
- * url : http://referensi.data.kemdikbud.go.id/index11.php
+ * url : https://referensi.data.kemdikbud.go.id/index11.php
  */
 
 require_once __DIR__."/src/func.php";
 require_once __DIR__."/src/xlsxwriter.class.php";
 date_default_timezone_set("Asia/Jakarta");
 
-$base_url = "http://referensi.data.kemdikbud.go.id/";
+$base_url = "https://referensi.data.kemdikbud.go.id/";
 $getData = new GetData;
 
 $linkProv = '';
