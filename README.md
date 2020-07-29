@@ -8,6 +8,9 @@ serta NPSN dan Nama Sekolah selama proses berlangsung.
 - PHP
 - C++
 
+### Cara Penggunaan
+Cara penggunakan aplikasi ini bisa dibaca pada file `DOKUMENTASI CARA MENGGUNAKAN APLIKASI SEDOT DAPODIK.doc`.
+
 ### Kontribusi
 Silahkan jika anda ingin berkontribusi dalam repositori ini, silahkan fork dan pull request saja.
 
