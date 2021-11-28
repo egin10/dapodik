@@ -28,7 +28,11 @@ if ( $xlsx = SimpleXLSX::parse(__DIR__.'/check-npsn.xlsx') ) {
 			$getData = new GetData;
 			$url = "https://referensi.data.kemdikbud.go.id/tabs.php?npsn=".trim($xlsx->rows()[$i][0]);
 			$ch = curl_init($url);
-			curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
+			curl_setopt_array($ch, [
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_SSL_VERIFYHOST => false
+			]);
 			$get = curl_exec($ch);
 			$res = $getData->checkNPSN($get);
 			curl_close($ch);

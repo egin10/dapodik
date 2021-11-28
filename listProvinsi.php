@@ -12,7 +12,11 @@ date_default_timezone_set("Asia/Jakarta");
 $getData = new GetData;
 $url = "https://referensi.data.kemdikbud.go.id/index11.php";
 $ch = curl_init($url);
-curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
+curl_setopt_array($ch, [
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_SSL_VERIFYPEER => false,
+	CURLOPT_SSL_VERIFYHOST => false
+]);
 $get = curl_exec($ch);
 $listProvinsi = $getData->listProvinsi($get);
 curl_close($ch);
